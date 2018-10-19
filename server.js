@@ -12,6 +12,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect("mongodb://localhost/cheerioScraper", { useNewUrlParser: true });
+}
+
 // Send every request to the React app
 // Define any API routes before this runs
 app.get('*', function(req, res) {
